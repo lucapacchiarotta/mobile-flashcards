@@ -8,3 +8,6 @@ cd mobile-flashcards
 npm install
 npm start
 ```
+
+## Testing
+Tested on Android Device (Samsung Galaxy S7 Edge)

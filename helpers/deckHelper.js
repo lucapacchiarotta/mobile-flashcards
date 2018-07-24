@@ -2,7 +2,6 @@ import {AsyncStorage} from 'react-native'
 import * as acts from '../actions'
 export const DECKS_STORAGE_KEY = 'FlashCards:decks'
 
-/** Add a new deck or update an existing one, dispatch it to redux when stored */
 export const addDeck = (deck) => dispatch => {
   if (deck.id == null) {
     return getDecks()().then((decks) => {
@@ -21,16 +20,13 @@ export const addDeck = (deck) => dispatch => {
       })
     ).then(err => {
       if (err == null) {
-        //refreshing full deck list in redux
         getDecks()(dispatch)
-        //returning new deck
         return deck;
       }
     })
   }
 }
 
-/** Get a deck from id and dispatch it to redux */
 export const getDeck = deckId => dispatch => {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(results => {
     let res = JSON.parse(results);
@@ -39,7 +35,6 @@ export const getDeck = deckId => dispatch => {
   })
 }
 
-/** Get the full deck list and dispatch and dispatch it to redux */
 export const getDecks = () => dispatch => {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(results => {
     let decks = [];
@@ -54,7 +49,6 @@ export const getDecks = () => dispatch => {
   })
 }
 
-/** Add a question to a deck and dispatch it to redux when stored */
 export const addCard = (deckId, card) => dispatch => {
   return getDeck(deckId)().then(deck => {
     deck.questions.push(card);
