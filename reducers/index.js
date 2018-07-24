@@ -18,8 +18,8 @@ function entries(state = INITIAL_STATE, action) {
         deck: action.deck
       }
     default:
-      return state;
+      return state
   }
 }
 
-export default entries;
+export default entries
