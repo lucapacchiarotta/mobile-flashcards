@@ -74,7 +74,7 @@ class Quiz extends React.Component {
       toValue: toFront ? 0 : 180,
       friction: 8,
       tension: 10
-    }).start();
+    }).start()
   }
 
   nextQuestion() {
@@ -82,7 +82,7 @@ class Quiz extends React.Component {
     this.setState({
       currentQuestionIx: this.state.currentQuestionIx + 1,
       isCurrentCorrect: null
-    });
+    })
   }
 
   onRestartQuiz() {
@@ -92,7 +92,14 @@ class Quiz extends React.Component {
       completedQuestions: 0,
       correctAnswers: 0,
       isCurrentCorrect: null
-    });
+    })
+  }
+
+  backToDeck() {
+    this.props.navigation.navigate('DeckList', {
+      name: this.state.deck.title,
+      deckId: this.state.deckId
+    })
   }
 
   render() {
@@ -177,7 +184,7 @@ class Quiz extends React.Component {
                 this.state.correctAnswers / this.state.completedQuestions * 100
               ).toFixed(2)}%`}</Text>
             )}
-            <View style={{ flex: 0.1 }} />
+            <View style={{ flex: 0.5 }} />
             {this.state.deck.questions.length > 0 &&
               this.state.currentQuestionIx <
                 this.state.deck.questions.length - 1 && (
@@ -194,11 +201,18 @@ class Quiz extends React.Component {
                 this.state.deck.questions.length - 1) ||
               (this.state.currentQuestionIx === 0 &&
                 this.state.completedQuestions > 0)) && (
-              <Button
-                style={[styles.title]}
-                title='Restart Quiz'
-                color={red}
-                onPress={() => this.onRestartQuiz()} />
+              <View style={styles.btnBottomContainer}>
+                <Button
+                    style={styles.title}
+                    title='Back to deck'
+                    color={red}
+                    onPress={() => this.backToDeck()} />
+                <Button
+                  style={styles.title}
+                  title='Restart Quiz'
+                  color={red}
+                  onPress={() => this.onRestartQuiz()} />
+              </View>
             )}
           </View>
         </View>
@@ -237,6 +251,10 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     marginTop: 40,
     width: Dimensions.get('window').width - 60,
+  },
+  btnBottomContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   },
   button: {
     margin: 5,

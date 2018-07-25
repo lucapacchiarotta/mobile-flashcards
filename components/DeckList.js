@@ -8,7 +8,7 @@ class DeckList extends React.Component {
   
   state = {
     deckSelected: null
-  };
+  }
 
   componentDidMount() {
     if (this.props.navigation.state.params &&
@@ -30,7 +30,7 @@ class DeckList extends React.Component {
     this.props.navigation.navigate('DeckList', {
       name: deck.title,
       deckId: deck_id
-    });
+    })
   }
 
   onClickAddCard(deck_id) {
@@ -38,14 +38,14 @@ class DeckList extends React.Component {
     this.props.navigation.navigate('AddCard', {
       deckId: deck_id, 
       deckTitle: deck.title,
-    });
+    })
   }
   onClickQuiz(deck_id) {
     let deck = this.props.decks.filter((deck) => deck.id === deck_id)[0];
     this.props.navigation.navigate('Quiz', {
       deck: deck, 
       deckTitle: deck.title,
-    });
+    })
   }
   renderItem = ({item}) => {
     return <Deck
